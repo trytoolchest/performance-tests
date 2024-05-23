@@ -1,4 +1,4 @@
-SAMPLES = [f'sample{i}' for i in range(1000)]
+SAMPLES = [f'sample{i}' for i in range(10)]
 
 LINK = 'https://s3.amazonaws.com/igenomes.illumina.com/Escherichia_coli_K_12_DH10B/Ensembl/EB1/Escherichia_coli_K_12_DH10B_Ensembl_EB1.tar.gz'
 FILE = 'Escherichia_coli_K_12_DH10B_Ensembl_EB1.tar.gz'
@@ -40,14 +40,13 @@ rule copy_files:
 
 rule calculate_total_time:
     input:
-        expand('benchmarks/create_files/{sample}.log', sample=SAMPLES)
+        expand('benchmarks/create_files/{sample}.log', sample=SAMPLES),
+        'downloads/' + FILE,
+        'benchmarks/download_files.log',
+        'benchmarks/copy_files.log'
     output:
         'benchmarks/total_time_create_files.log'
-    run:
-        total_time = 0
-        for benchmark_file in input:
-            with open(benchmark_file, 'r') as f:
-                time = float(f.readlines()[1].split('\t')[0])
-                total_time += time
-        with open(output[0], 'w') as f:
-            f.write(f'Total time: {total_time}\n')
+    script:
+        'metrics.py'
+
+        
