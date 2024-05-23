@@ -1,4 +1,4 @@
-SAMPLES = [f'sample{i}' for i in range(10)]
+SAMPLES = [f'sample{i}' for i in range(1000)]
 
 LINK = 'https://s3.amazonaws.com/igenomes.illumina.com/Escherichia_coli_K_12_DH10B/Ensembl/EB1/Escherichia_coli_K_12_DH10B_Ensembl_EB1.tar.gz'
 FILE = 'Escherichia_coli_K_12_DH10B_Ensembl_EB1.tar.gz'
