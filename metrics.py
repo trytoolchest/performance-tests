@@ -1,20 +1,8 @@
 import os
 
-# # Get metrics for creating files (total time and files/s)
-# total_time = 0
-# total_files = 0
-# for benchmark_file in snakemake.input[:-3]:
-#     total_files += 1
-#     with open(benchmark_file, 'r') as f:
-#         time = float(f.readlines()[1].split('\t')[0])
-#         total_time += time
-
-# fps = int(total_files/total_time)
-# with open(snakemake.output[0], 'w') as f:
-#     f.write(f'Total time: {total_time}\n')
-
+# Calculate files created per second (files/s)
 total_files = len(os.listdir('created_files'))
-with open(snakemake.input[-4], 'r') as f: # open download log
+with open(snakemake.input[-4], 'r') as f: # open created log
     time = float(f.readlines()[1].split('\t')[0])
 fps = int(total_files/time)
 with open (snakemake.output[0], 'w') as f:
