@@ -1,4 +1,4 @@
-TOTAL_FILES = 1000
+TOTAL_FILES = 5
 SAMPLES = [f'sample{i}' for i in range(TOTAL_FILES)]
 
 LINK = 'https://s3.amazonaws.com/igenomes.illumina.com/Escherichia_coli_K_12_DH10B/Ensembl/EB1/Escherichia_coli_K_12_DH10B_Ensembl_EB1.tar.gz'
@@ -6,18 +6,24 @@ FILE = 'Escherichia_coli_K_12_DH10B_Ensembl_EB1.tar.gz'
 
 rule all:
     input:
-        expand('created_files/{sample}.txt', sample=SAMPLES),
-        'downloads/' + FILE,
-        'copies/' + FILE,
-        'benchmarks/total_time_create_files.log'
+        'benchmarks/create_files.log',
+        'benchmarks/download_files.log',
+        'benchmarks/copy_files.log',
+        'benchmarks/speeds.log'
 
 rule create_files:
     output:
-        'created_files/{sample}.txt'
+        directory('created_files/')
     benchmark:
-        'benchmarks/create_files/{sample}.log'
+        'benchmarks/create_files.log'
     shell:
-        'touch {output}'
+        """
+        mkdir created_files
+        for i in `seq 1 {TOTAL_FILES}`
+        do
+            touch created_files/sample$i.txt
+        done
+        """
 
 rule download_files:
     params:
@@ -41,12 +47,12 @@ rule copy_files:
 
 rule calculate_total_time:
     input:
-        expand('benchmarks/create_files/{sample}.log', sample=SAMPLES),
+        'benchmarks/create_files.log',
         'downloads/' + FILE,
         'benchmarks/download_files.log',
         'benchmarks/copy_files.log'
     output:
-        'benchmarks/total_time_create_files.log'
+        'benchmarks/speeds.log'
     script:
         'metrics.py'
 

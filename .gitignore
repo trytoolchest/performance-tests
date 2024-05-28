@@ -1,5 +1,5 @@
 .snakemake
-tar.gz
+.tar.gz
 .DS_Store
 __pycache__/
-
+flowdeploy_test.py
