@@ -1,7 +1,7 @@
 # Number of files to generate
 numfiles: 10000
 
-# Size of custom file to generate in (MB)
+# Size of custom file to generate (MB)
 filesize: 120000
 
 # Link of file to download from internet
