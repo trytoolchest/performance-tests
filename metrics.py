@@ -1,7 +1,7 @@
 import os
 
 # Calculate files created per second (files/s)
-total_files = len(os.listdir('created_files'))
+total_files = len(os.listdir('results/created_files'))
 with open(snakemake.input[-4], 'r') as f: # open created log
     time = float(f.readlines()[1].split('\t')[0])
 fps = int(total_files/time)
