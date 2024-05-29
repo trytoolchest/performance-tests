@@ -18,8 +18,8 @@ rule create_files:
         'results/benchmarks/create_files.log'
     shell:
         """
-        mkdir results/
-        mkdir results/created_files/
+        mkdir -p results/
+        mkdir -p results/created_files/
         for i in `seq 1 {TOTAL_FILES}`
         do
             touch results/created_files/sample$i.txt
