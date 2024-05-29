@@ -2,7 +2,7 @@
 numfiles: 10000
 
 # Size of custom file to generate (MB)
-filesize: 1000
+filesize: 100000
 
 # Link of file to download from internet
 download: "https://s3.amazonaws.com/igenomes.illumina.com/Escherichia_coli_K_12_DH10B/Ensembl/EB1/Escherichia_coli_K_12_DH10B_Ensembl_EB1.tar.gz"
