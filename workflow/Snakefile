@@ -1,0 +1,69 @@
+import os
+
+configfile: "config/config.yaml"
+FILENAME = os.path.basename(config['download'])
+
+rule all:
+    input:
+        'results/benchmarks/create_files.log',
+        'results/benchmarks/download_files.log',
+        'results/benchmarks/copy_files.log',
+        'results/benchmarks/speeds.log'
+
+rule create_files:
+    params:
+        numfiles=config['numfiles']
+    output:
+        directory('results/created_files/')
+    benchmark:
+        'results/benchmarks/create_files.log'
+    shell:
+        """
+        mkdir -p results/
+        mkdir -p results/created_files/
+        for i in `seq 1 {params.numfiles}`
+        do
+            echo "This is file $i." >> results/created_files/sample$i.txt
+        done
+        """
+
+rule download_files:
+    params:
+        link=config['download']
+    output:
+        'results/downloads/' + FILENAME
+    benchmark:
+        'results/benchmarks/download_files.log'
+    shell:
+        'curl -o {output} {params.link}'
+
+rule generate_custom_file:
+    params:
+        filesize=config['filesize']
+    output:
+        'results/downloads/custom_file.txt'
+    shell:
+        "dd if=/dev/random of={output} bs=1M count={params.filesize}"
+
+rule copy_files:
+    input:
+        'results/downloads/custom_file.txt'
+    output:
+        'results/copies/custom_file.txt'
+    benchmark:
+        'results/benchmarks/copy_files.log'
+    shell:
+        'cp {input} {output}'
+
+rule calculate_total_time:
+    input:
+        'results/benchmarks/create_files.log',
+        'results/downloads/custom_file.txt',
+        'results/benchmarks/download_files.log',
+        'results/benchmarks/copy_files.log'
+    output:
+        'results/benchmarks/speeds.log'
+    script:
+        'scripts/metrics.py'
+
+        
