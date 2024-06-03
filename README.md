@@ -8,7 +8,7 @@ Modify [`config.yaml`](config/config.yaml) based on the desired parameters.
 * Edit `download` to the source of file to be downloaded. This is to test network download speed.
 
 ## Output
-All files and raw benchmarks from Snakemake can be found in [`results/`]. The calculated speeds are reported in [`results/benchmarks/speeds.log`].
+All files and raw benchmarks from Snakemake can be found in `results/`. The calculated speeds are reported in `results/benchmarks/speeds.log`.
 
 ## Results
 Below are testing results of the pipeline with FlowDeploy on different AWS file system configurations.
