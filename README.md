@@ -14,6 +14,6 @@ All files and raw benchmarks from Snakemake can be found in `results`. The calcu
 Below are testing results of the pipeline with FlowDeploy on different AWS file system configurations.
 | **Operation**            | **EBS** | **Instance Store** | **FSx** | **ObjectiveFS** | **S3Fs** |
 |--------------------------|---------|--------------------|---------|-----------------|----------|
-| Files created per second | 24878   | -                  | 418     | 582             | 8        |
-| Network download (MB/s)  | 24.44   | -                  | 33.04   | 48.42           | 33.47    |
-| Disk throughput (MB/s)   | 114.0   | -                  | 862.3   | 215.6           | 45.13    |
+| Files created per second | 24878   | 31850              | 418     | 582             | 8        |
+| Network download (MB/s)  | 24.44   | 30.31              | 33.04   | 48.42           | 33.47    |
+| Disk throughput (MB/s)   | 114.0   | 555.6              | 862.3   | 215.6           | 45.13    |
