@@ -58,7 +58,7 @@ rule copy_files:
 rule calculate_total_time:
     input:
         'results/benchmarks/create_files.log',
-        'results/downloads/custom_file.txt',
+        'results/downloads/' + FILENAME,
         'results/benchmarks/download_files.log',
         'results/benchmarks/copy_files.log'
     output:
